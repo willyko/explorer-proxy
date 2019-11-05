@@ -23,16 +23,6 @@ const proxy = httpProxy.createProxyServer({});
 // also you can use `proxy.ws()` to proxy a websockets request
 //
 const server = https.createServer( ssl, function(req, res) {
-  // Set CORS headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Request-Method', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
-  res.setHeader('Access-Control-Allow-Headers', '*');
-  if ( req.method === 'OPTIONS' ) {
-    res.writeHead(200);
-    res.end();
-    return;
-  }
   // You can define here your custom logic to handle the request
   // and then proxy the request.gi
   // console.log(req.headers);
@@ -52,6 +42,23 @@ const server = https.createServer( ssl, function(req, res) {
     //} else {
     //}
   }
+});
+
+proxy.on('proxyRes', function (proxyRes, req, res) {
+  console.log('RAW Response from the target', JSON.stringify(proxyRes.headers, true, 2));
+
+  // Set CORS headers
+  proxyRes.setHeader('Access-Control-Allow-Origin', '*');
+  proxyRes.setHeader('Access-Control-Request-Method', '*');
+  proxyRes.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
+  proxyRes.setHeader('Access-Control-Allow-Headers', '*');
+  if ( proxyRes.method === 'OPTIONS' ) {
+    res.writeHead(200);
+    res.end();
+    return;
+  }
+
+  res.write(proxyRes);
 });
 
 //server.on('upgrade', function (req, socket, head) {
