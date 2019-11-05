@@ -43,17 +43,28 @@ const server = https.createServer( ssl, function(req, res) {
   console.log('URL: ', req.url, ws);
   if (host === 'explorer.blockchainfoundry.co') {
     console.log(`Routing to explorer port ${config.explorer.http}`);
-    proxy.web(req, res, {target: {host: 'localhost', port: ws ? config.explorer.ws : config.explorer.http }});
+    proxy.web(req, res, {
+      target: {
+        host: 'localhost',
+        port: ws ? config.explorer.ws : config.explorer.http
+      },
+      ws: ws
+    });
   } else if (host === 'explorer-testnet.blockchainfoundry.co') {
     console.log(`Routing to testnet explorer port ${config['explorer-testnet'].http}`);
-    proxy.web(req, res, { target: { host: 'localhost', port: config['explorer-testnet'].http }});
+    proxy.web(req, res, {
+      target: {
+        host: 'localhost',
+        port: config['explorer-testnet'].http
+      }
+    });
   }
 });
 
-server.on('upgrade',function(req, socket, head){
-  console.log('up');
-  proxy.ws(req, socket, head, { target: { host: 'localhost', port: 9999 }});
-});
+//server.on('upgrade',function(req, socket, head){
+//  console.log('up');
+//  proxy.ws(req, socket, head, { target: { host: 'localhost', port: 9999 }});
+//});
 
 console.log(`listening on port ${config.port}`);
 server.listen(config.port);
