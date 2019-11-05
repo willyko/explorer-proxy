@@ -22,7 +22,7 @@ const proxy = httpProxy.createProxyServer({ ssl: ssl });
 // a web request to the target passed in the options
 // also you can use `proxy.ws()` to proxy a websockets request
 //
-const server = http.createServer( { target: { host: 'localhost', port: 9000 } });
+const server = httpProxy.createServer( { target: { host: 'localhost', port: 9000 } });
 
 //server.on('upgrade', function (req, socket, head) {
 //  proxy.ws(req, socket, head);
