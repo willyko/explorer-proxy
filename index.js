@@ -48,15 +48,15 @@ proxy.on('proxyRes', function (proxyRes, req, res) {
   console.log('RAW Response from the target', JSON.stringify(proxyRes.headers, true, 2));
 
   // Set CORS headers
-  proxyRes.setHeader('Access-Control-Allow-Origin', '*');
-  proxyRes.setHeader('Access-Control-Request-Method', '*');
-  proxyRes.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
-  proxyRes.setHeader('Access-Control-Allow-Headers', '*');
-  if ( proxyRes.method === 'OPTIONS' ) {
-    res.writeHead(200);
-    res.end();
-    return;
-  }
+  //proxyRes.setHeader('Access-Control-Allow-Origin', '*');
+  //proxyRes.setHeader('Access-Control-Request-Method', '*');
+  //proxyRes.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
+  //proxyRes.setHeader('Access-Control-Allow-Headers', '*');
+  //if ( proxyRes.method === 'OPTIONS' ) {
+  //  res.writeHead(200);
+  //  res.end();
+  //  return;
+  //}
 
   res.write(proxyRes);
 });
