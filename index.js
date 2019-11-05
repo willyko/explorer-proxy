@@ -16,7 +16,8 @@ try {
 // Create a proxy server with custom application logic
 //
 const proxy = httpProxy.createProxyServer({
-  ssl: ssl
+  ssl: ssl,
+  secure: true
 });
 
 //
