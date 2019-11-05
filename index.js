@@ -16,11 +16,12 @@ try {
 // Create a proxy server with custom application logic
 //
 const proxy = httpProxy.createProxyServer({
-  target: 'wss://localhost:9999/zmq',
+  target: 'https://localhost:9999/zmq',
   ws: true
 });
 
 proxy.on('upgrade', function (req, socket, head) {
+  console.log('upgrade');
   proxy.ws(req, socket, head);
 });
 
