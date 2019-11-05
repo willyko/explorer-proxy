@@ -27,7 +27,7 @@ const server = https.createServer( ssl, function(req, res) {
   // and then proxy the request.gi
   let host = req.headers.host.split(':')[0];
   let port = req.headers.host.split(':')[1];
-  console.log(req.headers);
+  console.log(req);
 
   if (port) port = +port; //convert to number
   if (host === 'explorer.blockchainfoundry.co') {
