@@ -15,7 +15,7 @@ try {
 //
 // Create a proxy server with custom application logic
 //
-const proxy = httpProxy.createProxyServer({ ssl: ssl });
+const proxy = httpProxy.createProxyServer({});
 
 //
 // Create your custom server and just call `proxy.web()` to proxy
@@ -45,8 +45,8 @@ const server = http.createServer( function(req, res) {
     }
   }
 
-  return { ssl };
-}, { ssl: ssl });
+  return { ssl: ssl, secure: true };
+}, { ssl: ssl, secure: true });
 
 //server.on('upgrade', function (req, socket, head) {
 //  proxy.ws(req, socket, head);
