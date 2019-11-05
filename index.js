@@ -44,14 +44,14 @@ const server = https.createServer( ssl, function(req, res) {
   if (port) port = +port; //convert to number
   if (host === 'explorer.blockchainfoundry.co') {
     console.log(`Routing to explorer port ${config.explorer.http}`);
-    proxy.web(req, res, {target: {host: 'localhost', port: 9999}, ws: true});
+    proxy.web(req, res, {target: {host: 'localhost', port: 9999 }});
   } else if (host === 'explorer-testnet.blockchainfoundry.co') {
     console.log(`Routing to testnet explorer port ${config['explorer-testnet'].http}`);
     proxy.web(req, res, { target: { host: 'localhost', port: config['explorer-testnet'].http }});
   }
 });
 
-server.on('upgrade',function(req,socket, head){
+server.on('upgrade',function(req, socket, head){
   console.log('up');
   proxy.ws(req, socket, head, function(err) {
     console.log('upgrade error', err);
