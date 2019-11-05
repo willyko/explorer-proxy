@@ -63,7 +63,7 @@ var proxy2 = new httpProxy.createProxyServer({
     port: 9999
   }
 });
-var proxyServer2 = http.createServer(function (req, res) {
+var proxyServer2 = https.createServer(ssl, function (req, res) {
   proxy.web(req, res);
 });
 
