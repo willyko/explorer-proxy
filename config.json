@@ -1,10 +1,11 @@
 {
   "port": 443,
-  "wsPort": 9999,
   "explorer": {
-    "http":  9001
+    "http":  9001,
+    "wsPort": 9999
   },
   "explorer-testnet": {
-    "http": 9000
+    "http": 9000,
+    "wsPort": 9999
   }
 }
