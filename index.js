@@ -31,7 +31,7 @@ const server = http.createServer( function(req, res) {
   if (hostName === 'explorer.blockchainfoundry.co') {
     if (port !== config.wsPort) {
       console.log(`Routing to explorer port ${config.explorer.http}`);
-      proxy.web(req, res, { target: 'localhost', port: config.explorer.http, ssl, secure: true });
+      proxy.web(req, res, { target: 'localhost', port: config.explorer.http, ssl });
     } else {
 
     }
@@ -44,7 +44,7 @@ const server = http.createServer( function(req, res) {
     }
   }
 
-  return { ssl, secure: true };
+  return { ssl };
 });
 
 //server.on('upgrade', function (req, socket, head) {
