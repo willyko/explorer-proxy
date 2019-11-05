@@ -53,7 +53,7 @@ const server = https.createServer( ssl, function(req, res) {
 
 server.on('upgrade',function(req, socket, head){
   console.log('up');
-  proxy.ws(req, socket, head, { target: 'localhost' });
+  proxy.ws(req, socket, head, { target: { host: 'localhost', port: 9999 }});
 });
 
 console.log(`listening on port ${config.port}`);
