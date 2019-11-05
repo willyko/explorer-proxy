@@ -16,7 +16,7 @@ try {
 // Create a proxy server with custom application logic
 //
 const proxy = httpProxy.createProxyServer({
-  target: 'localhost',
+  target: 'wss://localhost:9999/zmq',
   ws: true
 });
 
