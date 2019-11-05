@@ -23,6 +23,9 @@ const proxy = httpProxy.createProxyServer({});
 // also you can use `proxy.ws()` to proxy a websockets request
 //
 const server = https.createServer( ssl, function(req, res) {
+  // cors
+  res.setHeader('Access-Control-Allow-Headers', req.headers.origin);
+
   // You can define here your custom logic to handle the request
   // and then proxy the request.gi
   // console.log(req.headers);
