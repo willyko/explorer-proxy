@@ -22,31 +22,7 @@ const proxy = httpProxy.createProxyServer({ ssl: ssl, secure: true});
 // a web request to the target passed in the options
 // also you can use `proxy.ws()` to proxy a websockets request
 //
-const server = http.createServer( function(req, res) {
-  // You can define here your custom logic to handle the request
-  // and then proxy the request.gi
-  console.log(req.headers);
-
-  let hostName = req.headers.host.split(':')[0];
-  let port = req.headers.host.split(':')[1];
-  if (hostName === 'explorer.blockchainfoundry.co') {
-    if (port !== config.wsPort) {
-      console.log(`Routing to explorer port ${config.explorer.http}`);
-      proxy.web(req, res, { target: 'localhost', port: config.explorer.http, ssl: ssl });
-    } else {
-
-    }
-  } else if (req.headers.host === 'explorer-testnet.blockchainfoundry.co') {
-    if (port !== config.wsPort) {
-      console.log(`Routing to testnet explorer port ${config['explorer-testnet'].http}`);
-      proxy.web(req, res, { port: config['explorer-testnet'].http, ssl });
-    } else {
-
-    }
-  }
-
-  return { ssl: ssl, secure: true };
-}, { ssl: ssl, secure: true });
+const server = http.createServer( { ssl: ssl, secure: true, target: 'localhost', port: 9000 });
 
 //server.on('upgrade', function (req, socket, head) {
 //  proxy.ws(req, socket, head);
