@@ -52,20 +52,13 @@ const server = https.createServer( ssl, function(req, res) {
   }
 });
 
-server.on("connect", (req, clientSocket, head) => {
-  console.log("connect called")
-
-  let reqUrl = req.url
-  let wsUrl = `ws://${reqUrl}`
-
-  proxy.ws(req,clientSocket,head,
-    {
-      target: wsUrl,
-      ws: true,
-      autoRewrite: true,
-      changeOrigin: true
-    })
-})
+server.on('upgrade',function(req,socket, head){
+  console.log('up');
+  proxy.ws(req, socket, head, function(err) {
+    console.log('upgrade error', err);
+    socket.write('disconnect');
+  });
+});
 
 console.log(`listening on port ${config.port}`);
 server.listen(config.port);
