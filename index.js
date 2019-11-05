@@ -15,10 +15,7 @@ try {
 //
 // Create a proxy server with custom application logic
 //
-const proxy = httpProxy.createProxyServer({
-  ssl: ssl,
-  secure: true
-});
+const proxy = httpProxy.createProxyServer({});
 
 //
 // Create your custom server and just call `proxy.web()` to proxy
@@ -34,14 +31,14 @@ const server = http.createServer(function(req, res) {
   if (hostName === 'explorer.blockchainfoundry.co') {
     if (port !== config.wsPort) {
       console.log(`Routing to explorer port ${config.explorer.http}`);
-      proxy.web(req, res, {target: `http://127.0.0.1:${config.explorer.http}`});
+      proxy.web(req, res, { port: config.explorer.http, ssl });
     } else {
 
     }
   } else if (req.headers.host === 'explorer-testnet.blockchainfoundry.co') {
     if (port !== config.wsPort) {
       console.log(`Routing to testnet explorer port ${config['explorer-testnet'].http}`);
-      proxy.web(req, res, {target: `http://127.0.0.1:${config['explorer-testnet'].http}`});
+      proxy.web(req, res, { port: config['explorer-testnet'].http, ssl });
     } else {
 
     }
