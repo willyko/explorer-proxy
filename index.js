@@ -25,6 +25,10 @@ proxy.on('upgrade', function (req, socket, head) {
   proxy.ws(req, socket, head);
 });
 
+proxy.on( 'proxyReqWs', function ( proxyReqWs, req, res ) {
+  console.log( 'Proxy *WS* Request', proxyReqWs.path );
+});
+
 //
 // Create your custom server and just call `proxy.web()` to proxy
 // a web request to the target passed in the options
