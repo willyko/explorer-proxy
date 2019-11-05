@@ -48,9 +48,9 @@ const server = http.createServer(function(req, res) {
   }
 });
 
-server.on('upgrade', function (req, socket, head) {
-  proxy.ws(req, socket, head);
-});
+//server.on('upgrade', function (req, socket, head) {
+//  proxy.ws(req, socket, head);
+//});
 
 console.log(`listening on port ${config.port}`);
 server.listen(config.port);
