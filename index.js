@@ -9,7 +9,7 @@ try {
     cert: fs.readFileSync('/etc/letsencrypt/live/explorer.blockchainfoundry.co/fullchain.pem', 'utf8')
   };
 } catch (e) {
-
+  console.log('ssl error', e);
 }
 
 //
