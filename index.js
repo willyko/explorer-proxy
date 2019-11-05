@@ -58,7 +58,7 @@ proxy.on('proxyRes', function (proxyRes, req, res) {
   //  return;
   //}
 
-  res.write(proxyRes);
+  res.json(proxyRes);
 });
 
 //server.on('upgrade', function (req, socket, head) {
