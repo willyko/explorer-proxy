@@ -32,7 +32,7 @@ const server = https.createServer( ssl, function(req, res) {
   if (hostName === 'explorer.blockchainfoundry.co') {
     if (port !== config.wsPort) {
       console.log(`Routing to explorer port ${config.explorer.http}`);
-      proxy.web(req, res, { target: 'localhost', port: config.explorer.http });
+      proxy.web(req, res, { target: { host: 'localhost', port: config.explorer.http }});
     } else {
 
     }
