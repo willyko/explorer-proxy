@@ -15,7 +15,7 @@ try {
 //
 // Create a proxy server with custom application logic
 //
-const proxy = httpProxy.createProxyServer({ ws: true});
+const proxy = httpProxy.createProxyServer({ target: 'http://localhost', ws: true});
 
 proxy.on('upgrade', function (req, socket, head) {
   console.log('upgrade');
