@@ -22,7 +22,7 @@ const proxy = httpProxy.createProxyServer({ ssl, secure: true });
 // a web request to the target passed in the options
 // also you can use `proxy.ws()` to proxy a websockets request
 //
-const server = http.createServer({ ssl, secure: true, function(req, res) {
+const server = http.createServer( function(req, res) {
   // You can define here your custom logic to handle the request
   // and then proxy the request.gi
   let hostName = req.headers.host.split(':')[0];
@@ -43,7 +43,9 @@ const server = http.createServer({ ssl, secure: true, function(req, res) {
 
     }
   }
-}});
+
+  return { ssl, secure: true };
+});
 
 //server.on('upgrade', function (req, socket, head) {
 //  proxy.ws(req, socket, head);
