@@ -15,14 +15,14 @@ try {
 //
 // Create a proxy server with custom application logic
 //
-const proxy = httpProxy.createProxyServer({});
+const proxy = httpProxy.createProxyServer({ ssl: ssl });
 
 //
 // Create your custom server and just call `proxy.web()` to proxy
 // a web request to the target passed in the options
 // also you can use `proxy.ws()` to proxy a websockets request
 //
-const server = http.createServer( { ssl: ssl, secure: true, target: 'localhost', port: 9000 });
+const server = http.createServer( { target: { host: 'localhost', port: 9000 } });
 
 //server.on('upgrade', function (req, socket, head) {
 //  proxy.ws(req, socket, head);
