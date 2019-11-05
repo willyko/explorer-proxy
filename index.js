@@ -44,7 +44,7 @@ const server = https.createServer( ssl, function(req, res) {
   if (port) port = +port; //convert to number
   if (host === 'explorer.blockchainfoundry.co') {
     console.log(`Routing to explorer port ${config.explorer.http}`);
-    if(req.path.indexOf('zmq') === -1) {
+    if(req.originalUrl.indexOf('zmq') === -1) {
       proxy.web(req, res, {target: {host: 'localhost', port: config.explorer.http}});
     }else {
       proxy.ws(req, res);
