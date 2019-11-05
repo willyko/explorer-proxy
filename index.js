@@ -44,22 +44,22 @@ const server = https.createServer( ssl, function(req, res) {
   }
 });
 
-//proxy.on('proxyRes', function (proxyRes, req, res) {
-//  console.log('RAW Response from the target', JSON.stringify(proxyRes.headers, true, 2));
-//
-//  // Set CORS headers
-//  //proxyRes.setHeader('Access-Control-Allow-Origin', '*');
-//  //proxyRes.setHeader('Access-Control-Request-Method', '*');
-//  //proxyRes.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
-//  //proxyRes.setHeader('Access-Control-Allow-Headers', '*');
-//  //if ( proxyRes.method === 'OPTIONS' ) {
-//  //  res.writeHead(200);
-//  //  res.end();
-//  //  return;
-//  //}
-//
-//  res.json(proxyRes);
-//});
+proxy.on('proxyRes', function (proxyRes, req, res) {
+  console.log('RAW Response from the target', JSON.stringify(proxyRes.headers, true, 2));
+
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Request-Method', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
+  res.setHeader('Access-Control-Allow-Headers', '*');
+  if ( proxyRes.method === 'OPTIONS' ) {
+    res.writeHead(200);
+    res.end();
+    return;
+  }
+
+  res.end();
+});
 
 //server.on('upgrade', function (req, socket, head) {
 //  proxy.ws(req, socket, head);
