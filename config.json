@@ -1,0 +1,10 @@
+{
+  "port": 443,
+  "wsPort": 9999,
+  "explorer": {
+    "http":  9001
+  },
+  "explorer-testnet": {
+    "http": 9000
+  }
+}
