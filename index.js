@@ -26,6 +26,10 @@ proxy.on( 'proxyReqWs', function ( proxyReqWs, req, res ) {
   console.log( 'Proxy *WS* Request', proxyReqWs.path );
 });
 
+proxy.on( 'proxyReq', function ( proxyReq, req, res ) {
+  console.log( 'Proxy Request', proxyReq.path );
+});
+
 //
 // Create your custom server and just call `proxy.web()` to proxy
 // a web request to the target passed in the options
