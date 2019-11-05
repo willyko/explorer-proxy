@@ -58,6 +58,9 @@ server.listen(config.port);
 // Setup our server to proxy standard HTTP requests
 //
 httpProxy.createServer({
-  target: 'http://localhost:9999/zmq',
+  target: {
+    host: 'localhost',
+    port: 9999
+  },
   ws: true
 }).listen(9100);
