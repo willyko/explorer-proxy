@@ -29,6 +29,7 @@ const server = https.createServer( ssl, function(req, res) {
 
   let hostName = req.headers.host.split(':')[0];
   let port = req.headers.host.split(':')[1];
+  if (port) port = +port; //convert to number
   if (hostName === 'explorer.blockchainfoundry.co') {
     if (port !== config.explorer.wsPort) {
       console.log(`Routing to explorer port ${config.explorer.http}`);
