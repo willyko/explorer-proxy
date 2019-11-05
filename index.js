@@ -53,3 +53,22 @@ const server = https.createServer( ssl, function(req, res) {
 
 console.log(`listening on port ${config.port}`);
 server.listen(config.port);
+
+const server2 = https.createServer( ssl, function(req, res) {
+  // You can define here your custom logic to handle the request
+  // and then proxy the request.gi
+  let host = req.headers.host.split(':')[0];
+  let port = req.headers.host.split(':')[1];
+
+  if (port) port = +port; //convert to number
+  if (host === 'explorer.blockchainfoundry.co') {
+    console.log(`WS Routing to explorer port ${config.explorer.http}`);
+    proxy.web(req, res, { target: { host: 'localhost', port: config.explorer.http }, ws: true});
+  } else if (host === 'explorer-testnet.blockchainfoundry.co') {
+    console.log(`WS Routing to testnet explorer port ${config['explorer-testnet'].http}`);
+    proxy.web(req, res, { target: { host: 'localhost', port: config['explorer-testnet'].http }});
+  }
+});
+
+console.log(`2 listening on port 9999`);
+server2.listen(9999);
