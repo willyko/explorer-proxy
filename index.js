@@ -29,7 +29,7 @@ const server = http.createServer(function(req, res) {
   // and then proxy the request.gi
   let hostName = req.headers.host.split(':')[0];
   let port = req.headers.host.split(':')[1];
-
+  console.log(req.headers);
   if (hostName === 'explorer.blockchainfoundry.co') {
     if (port !== config.wsPort) {
       console.log(`Routing to explorer port ${config.explorer.http}`);
