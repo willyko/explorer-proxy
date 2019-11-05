@@ -25,12 +25,12 @@ const proxy = httpProxy.createProxyServer({});
 const server = https.createServer( ssl, function(req, res) {
   // You can define here your custom logic to handle the request
   // and then proxy the request.gi
-  // console.log(req.headers);
-
-  let hostName = req.headers.host.split(':')[0];
+  let host = req.headers.host.split(':')[0];
   let port = req.headers.host.split(':')[1];
+  console.log(hostName, port);
+
   if (port) port = +port; //convert to number
-  if (hostName === 'explorer.blockchainfoundry.co') {
+  if (host === 'explorer.blockchainfoundry.co') {
     if (port !== config.explorer.wsPort) {
       console.log(`Routing to explorer port ${config.explorer.http}`);
       proxy.web(req, res, { target: { host: 'localhost', port: config.explorer.http }});
@@ -38,7 +38,7 @@ const server = https.createServer( ssl, function(req, res) {
       console.log(`Routing to explorer WS port ${config.explorer.http}`);
       proxy.web(req, res, { target: { host: 'localhost', port: config.explorer.wsPort }, ws: true });
     }
-  } else if (req.headers.host === 'explorer-testnet.blockchainfoundry.co') {
+  } else if (host === 'explorer-testnet.blockchainfoundry.co') {
     //if (port !== config.wsPort) {
       console.log(`Routing to testnet explorer port ${config['explorer-testnet'].http}`);
       proxy.web(req, res, { target: { host: 'localhost', port: config['explorer-testnet'].http }, ws: true});
