@@ -31,38 +31,13 @@ const server = https.createServer( ssl, function(req, res) {
 
   if (port) port = +port; //convert to number
   if (host === 'explorer.blockchainfoundry.co') {
-    if (port !== config.explorer.wsPort) {
-      console.log(`Routing to explorer port ${config.explorer.http}`);
-      proxy.web(req, res, { target: { host: 'localhost', port: 9999 }, ws: true});
-    } else {
-      console.log(`Routing to explorer WS port ${config.explorer.http}`);
-      proxy.web(req, res, { target: { host: 'localhost', port: config.explorer.wsPort }, ws: true });
-    }
+    console.log(`Routing to explorer port ${config.explorer.http}`);
+    proxy.web(req, res, { target: { host: 'localhost', port: config.explorer.http }, ws: true});
   } else if (host === 'explorer-testnet.blockchainfoundry.co') {
-    //if (port !== config.wsPort) {
-      console.log(`Routing to testnet explorer port ${config['explorer-testnet'].http}`);
-      proxy.web(req, res, { target: { host: 'localhost', port: config['explorer-testnet'].http }, ws: true});
-    //} else {
-    //}
+    console.log(`Routing to testnet explorer port ${config['explorer-testnet'].http}`);
+    proxy.web(req, res, { target: { host: 'localhost', port: config['explorer-testnet'].http }, ws: true});
   }
 });
-
-//proxy.on('proxyRes', function (proxyRes, req, res) {
-//  console.log('RAW Response from the target', JSON.stringify(proxyRes.headers, true, 2));
-//
-//  // Set CORS headers
-//  res.setHeader('Access-Control-Allow-Origin', '*');
-//  res.setHeader('Access-Control-Request-Method', '*');
-//  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
-//  res.setHeader('Access-Control-Allow-Headers', '*');
-//  if ( proxyRes.method === 'OPTIONS' ) {
-//    res.writeHead(200);
-//    res.end();
-//    return;
-//  }
-//  res.writeHead(200);
-//  res.end();
-//});
 
 //server.on('upgrade', function (req, socket, head) {
 //  proxy.ws(req, socket, head);
