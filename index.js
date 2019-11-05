@@ -57,22 +57,7 @@ server.listen(config.port);
 //
 // Setup our server to proxy standard HTTP requests
 //
-var proxy2 = new httpProxy.createProxyServer({
-  target: {
-    host: 'localhost',
-    port: 9999
-  }
-});
-var proxyServer2 = https.createServer(ssl, function (req, res) {
-  proxy.web(req, res);
-});
-
-//
-// Listen to the `upgrade` event and proxy the
-// WebSocket requests as well.
-//
-proxyServer2.on('upgrade', function (req, socket, head) {
-  proxy2.ws(req, socket, head);
-});
-
-proxyServer2.listen(9100);
+httpProxy.createServer({
+  target: 'http://localhost:9999',
+  ws: true
+}).listen(9100);
