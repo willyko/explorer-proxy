@@ -12,29 +12,10 @@ try {
   console.log('ssl error', e);
 }
 
-//
-// Create a proxy server with custom application logic
-//
+//proxy
 const proxy = httpProxy.createProxyServer({});
 
-proxy.on('upgrade', function (req, socket, head) {
-  console.log('upgrade');
-  proxy.ws(req, socket, head);
-});
-
-proxy.on( 'proxyReqWs', function ( proxyReqWs, req, res ) {
-  console.log( 'Proxy *WS* Request', proxyReqWs.path );
-});
-
-proxy.on( 'proxyReq', function ( proxyReq, req, res ) {
-  console.log( 'Proxy Request', proxyReq.path );
-});
-
-//
-// Create your custom server and just call `proxy.web()` to proxy
-// a web request to the target passed in the options
-// also you can use `proxy.ws()` to proxy a websockets request
-//
+//main server
 const server = https.createServer( ssl, function(req, res) {
   // You can define here your custom logic to handle the request
   // and then proxy the request.gi
