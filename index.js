@@ -58,6 +58,7 @@ server.listen(config.port);
 // Setup our server to proxy standard HTTP requests
 //
 httpProxy.createServer({
+  ssl: ssl,
   target: {
     host: 'localhost',
     port: 9999
