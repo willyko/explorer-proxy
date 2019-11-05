@@ -15,7 +15,7 @@ try {
 //
 // Create a proxy server with custom application logic
 //
-const proxy = httpProxy.createProxyServer({});
+const proxy = httpProxy.createProxyServer({ ssl: ssl, secure: true});
 
 //
 // Create your custom server and just call `proxy.web()` to proxy
