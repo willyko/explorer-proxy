@@ -15,7 +15,7 @@ try {
 //
 // Create a proxy server with custom application logic
 //
-const proxy = httpProxy.createProxyServer({ target: 'http://localhost', ws: true});
+const proxy = httpProxy.createProxyServer({ target: 'localhost', ws: true});
 
 proxy.on('upgrade', function (req, socket, head) {
   console.log('upgrade');
@@ -45,7 +45,7 @@ const server = https.createServer( ssl, function(req, res) {
   if (host === 'explorer.blockchainfoundry.co') {
     console.log(`Routing to explorer port ${config.explorer.http}`);
     //proxy.web(req, res, { target: { host: 'localhost', port: config.explorer.http }});
-    proxy.ws(req, res, { target: { host: 'localhost', port: 9999 }, ws: true});
+    proxy.ws(req, res, { target: { host: 'localhost', port: 9999 }});
   } else if (host === 'explorer-testnet.blockchainfoundry.co') {
     console.log(`Routing to testnet explorer port ${config['explorer-testnet'].http}`);
     proxy.web(req, res, { target: { host: 'localhost', port: config['explorer-testnet'].http }});
