@@ -34,14 +34,14 @@ const server = http.createServer(function(req, res) {
   if (hostName === 'explorer.blockchainfoundry.co') {
     if (port !== config.wsPort) {
       console.log(`Routing to explorer port ${config.explorer.http}`);
-      proxy.web(req, res, {target: `http://localhost:${config.explorer.http}`});
+      proxy.web(req, res, {target: `http://127.0.0.1:${config.explorer.http}`});
     } else {
 
     }
   } else if (req.headers.host === 'explorer-testnet.blockchainfoundry.co') {
     if (port !== config.wsPort) {
       console.log(`Routing to testnet explorer port ${config['explorer-testnet'].http}`);
-      proxy.web(req, res, {target: `http://localhost:${config['explorer-testnet'].http}`, ws: true});
+      proxy.web(req, res, {target: `http://127.0.0.1:${config['explorer-testnet'].http}`});
     } else {
 
     }
