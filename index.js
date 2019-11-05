@@ -1,4 +1,4 @@
-const http = require('http'),
+const https = require('https'),
   fs = require('fs'),
   httpProxy = require('http-proxy');
 const config = require('./config');
@@ -22,7 +22,7 @@ const proxy = httpProxy.createProxyServer({});
 // a web request to the target passed in the options
 // also you can use `proxy.ws()` to proxy a websockets request
 //
-const server = http.createServer( ssl, function(req, res) {
+const server = https.createServer( ssl, function(req, res) {
   // You can define here your custom logic to handle the request
   // and then proxy the request.gi
   console.log(req.headers);
