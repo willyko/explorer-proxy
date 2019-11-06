@@ -17,10 +17,13 @@ const proxy = httpProxy.createProxyServer({});
 
 //main server
 const server = https.createServer( ssl, function(req, res) {
-  // You can define here your custom logic to handle the request
-  // and then proxy the request.gi
-  let host = req.headers.host.split(':')[0];
-  const ws = req.url.indexOf('zmq') !== -1;
+  let host, ws;
+  try {
+    host = req.headers.host.split(':')[0];
+    ws = req.url.indexOf('zmq') !== -1;
+  } catch (e) {
+    console.log('Error parsing:', req.headers);
+  }
   console.log('URL: ', req.url, ws);
   if (host === 'explorer.blockchainfoundry.co') {
     console.log(`Routing to explorer port ${config.explorer.http}`);
