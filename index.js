@@ -5,8 +5,8 @@ const config = require('./config');
 let ssl;
 try {
   ssl = {
-    key: fs.readFileSync('/etc/letsencrypt/live/explorer.blockchainfoundry.co/privkey.pem', 'utf8'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/explorer.blockchainfoundry.co/fullchain.pem', 'utf8')
+    key: fs.readFileSync('/etc/letsencrypt/live/blockchainfoundry.co/privkey.pem', 'utf8'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/blockchainfoundry.co/fullchain.pem', 'utf8')
   };
 } catch (e) {
   console.log('ssl error', e);
@@ -33,7 +33,7 @@ const server = https.createServer( ssl, function(req, res) {
         port: ws ? config.explorer.ws : config.explorer.http
       }
     });
-  } else if (host === 'explorer-testnet.blockchainfoundry.co') {
+  } /*else if (host === 'explorer-testnet.blockchainfoundry.co') {
     console.log(`Routing to testnet explorer port ${config['explorer-testnet'].http}`);
     proxy.web(req, res, {
       target: {
@@ -41,13 +41,13 @@ const server = https.createServer( ssl, function(req, res) {
         port: config['explorer-testnet'].http
       }
     });
-  }
+  }*/
 });
 
-//server.on('upgrade',function(req, socket, head){
-//  console.log('up');
-//  proxy.ws(req, socket, head, { target: { host: 'localhost', port: 9999 }});
-//});
+server.on('upgrade',function(req, socket, head){
+  console.log('upgrade websocket');
+  proxy.ws(req, socket, head, { target: { host: 'localhost', port: 9005, secure: true }});
+});
 
 console.log(`listening on port ${config.port}`);
 server.listen(config.port);
