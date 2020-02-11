@@ -6,10 +6,12 @@
     },
     "bridge-dashboard.blockchainfoundry.co": {
       "http": 80,
-      "ws": 9998
+      "ws": 9998,
+      "secure": false
     },
     "syscoin-websocket.blockchainfoundry.co": {
-      "ws": 9005
+      "ws": 9005,
+      "secure": true
     }
   }
 }

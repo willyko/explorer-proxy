@@ -55,7 +55,7 @@ server.on('upgrade',function(req, socket, head){
   const  hostEntry = getHostEntry(host);
   if (hostEntry && hostEntry.ws) {
     console.log('  > upgrade websocket ', host);
-    proxy.ws(req, socket, head, { target: { host: 'localhost', port: hostEntry.ws, secure: true }});
+    proxy.ws(req, socket, head, { target: { host: 'localhost', port: hostEntry.ws, secure: hostEntry.secure ? hostEntry.secure : false }});
   } else {
     console.log(`  > No websocket hostKey found for ${host} or host has no ws entry`);
   }
