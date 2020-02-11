@@ -37,7 +37,6 @@ const proxy = httpProxy.createProxyServer({});
 const server = https.createServer( ssl, function(req, res) {
   const host = parseHeaders(req);
   let  hostEntry = getHostEntry(host);
-  hostEntry = hostEntry ? config.hosts[hostEntry] : null;
   if (hostEntry && hostEntry.http) {
     console.log(`>> Routing to request to  ${hostEntry.http}`);
     proxy.web(req, res, {
