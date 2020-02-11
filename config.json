@@ -1,10 +1,14 @@
 {
   "port": 443,
-  "explorer": {
-    "http":  9001,
-    "ws": 9999
-  },
-  "explorer-testnet": {
-    "http": 9000
+  "hosts": {
+    "explorer": {
+      "http": 9001
+    },
+    "bridge-dashboard": {
+      "http": 80
+    },
+    "syscoin-websocket": {
+      "ws": 9005
+    }
   }
 }
