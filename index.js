@@ -38,7 +38,7 @@ const server = https.createServer( ssl, function(req, res) {
   const host = parseHeaders(req);
   let  hostEntry = getHostEntry(host);
   if (hostEntry && hostEntry.http) {
-    console.log(`>> Routing to request to  ${hostEntry.http}`);
+    console.log(`  > Routing to request to  ${hostEntry.http}`);
     proxy.web(req, res, {
       target: {
         host: 'localhost',
@@ -46,7 +46,7 @@ const server = https.createServer( ssl, function(req, res) {
       }
     });
   } else {
-    console.log(`No hostKey found for ${host} or host has no http entry`);
+    console.log(`  > No hostKey found for ${host} or host has no http entry`);
   }
 });
 
@@ -54,10 +54,10 @@ server.on('upgrade',function(req, socket, head){
   const host = parseHeaders(req);
   const  hostEntry = getHostEntry(host);
   if (hostEntry && hostEntry.ws) {
-    console.log('>> upgrade websocket ', host);
+    console.log('  > upgrade websocket ', host);
     proxy.ws(req, socket, head, { target: { host: 'localhost', port: hostEntry.ws, secure: true }});
   } else {
-    console.log(`No websocket hostKey found for ${host} or host has no ws entry`);
+    console.log(`  > No websocket hostKey found for ${host} or host has no ws entry`);
   }
 });
 
