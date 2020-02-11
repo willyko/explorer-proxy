@@ -24,14 +24,20 @@ function parseHeaders(req) {
   return host;
 }
 
+function getHostEntry(host) {
+  let  hostEntry = Object.keys(config.hosts).find(hostKey => hostKey === host);
+  hostEntry = hostEntry ? config.hosts[hostEntry] : null;
+  return hostEntry;
+}
+
 //proxy
 const proxy = httpProxy.createProxyServer({});
 
 //main server
 const server = https.createServer( ssl, function(req, res) {
   const host = parseHeaders(req);
-  const  hostEntry = Object.keys(config.hosts).find(hostKey => hostKey == host);
-  console.log(hostEntry);
+  let  hostEntry = getHostEntry(host);
+  hostEntry = hostEntry ? config.hosts[hostEntry] : null;
   if (hostEntry && hostEntry.http) {
     console.log(`>> Routing to request to  ${hostEntry.http}`);
     proxy.web(req, res, {
@@ -47,7 +53,7 @@ const server = https.createServer( ssl, function(req, res) {
 
 server.on('upgrade',function(req, socket, head){
   const host = parseHeaders(req);
-  const  hostEntry = Object.keys(config.hosts).find(hostKey => hostKey === host);
+  const  hostEntry = getHostEntry(host);
   if (hostEntry && hostEntry.ws) {
     console.log('>> upgrade websocket ', host);
     proxy.ws(req, socket, head, { target: { host: 'localhost', port: hostEntry.ws, secure: true }});
