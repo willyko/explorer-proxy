@@ -1,13 +1,13 @@
 {
   "port": 443,
   "hosts": {
-    "explorer": {
+    "explorer.blockchainfoundry.co": {
       "http": 9001
     },
-    "bridge-dashboard": {
+    "bridge-dashboard.blockchainfoundry.co": {
       "http": 80
     },
-    "syscoin-websocket": {
+    "syscoin-websocket.blockchainfoundry.co": {
       "ws": 9005
     }
   }
