@@ -33,6 +33,14 @@ function getHostEntry(host) {
 //proxy
 const proxy = httpProxy.createProxyServer({});
 
+proxy.on('perror', e => {
+  console.error(e); // ECONNRESET will be caught here
+});
+
+server.on('serror', e => {
+  console.error(e); // ECONNRESET will be caught here
+});
+
 //main server
 const server = https.createServer( ssl, function(req, res) {
   const host = parseHeaders(req);
@@ -60,7 +68,7 @@ server.on('upgrade',function(req, socket, head){
     console.log(`  > No websocket hostKey found for ${host} or host has no ws entry`);
   }
 
-  socket.on('error', err => {
+  socket.on('werror', err => {
     console.error(err); // ECONNRESET will be caught here
   });
 });
