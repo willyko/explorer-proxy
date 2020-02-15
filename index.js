@@ -59,7 +59,13 @@ server.on('upgrade',function(req, socket, head){
   } else {
     console.log(`  > No websocket hostKey found for ${host} or host has no ws entry`);
   }
+
+  socket.on('error', err => {
+    console.error(err); // ECONNRESET will be caught here
+  });
 });
+
+
 
 console.log(`listening on port ${config.port}`);
 server.listen(config.port);
