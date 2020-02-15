@@ -37,10 +37,6 @@ proxy.on('perror', e => {
   console.error(e); // ECONNRESET will be caught here
 });
 
-server.on('serror', e => {
-  console.error(e); // ECONNRESET will be caught here
-});
-
 //main server
 const server = https.createServer( ssl, function(req, res) {
   const host = parseHeaders(req);
@@ -56,6 +52,10 @@ const server = https.createServer( ssl, function(req, res) {
   } else {
     console.log(`  > No hostKey found for ${host} or host has no http entry`);
   }
+});
+
+server.on('serror', e => {
+  console.error(e); // ECONNRESET will be caught here
 });
 
 server.on('upgrade',function(req, socket, head){
