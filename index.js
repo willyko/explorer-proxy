@@ -11,6 +11,33 @@ try {
 } catch (e) {
   console.log('ssl error', e);
 }
+var enableCors = function(req, res) {
+  if (req.headers['access-control-request-method']) {
+    res.setHeader('access-control-allow-methods', req.headers['access-control-request-method']);
+  }
+
+  if (req.headers['access-control-request-headers']) {
+    res.setHeader('access-control-allow-headers', req.headers['access-control-request-headers']);
+  }
+
+  if (req.headers.origin) {
+    res.setHeader('access-control-allow-origin', req.headers.origin);
+    res.setHeader('access-control-allow-credentials', 'true');
+  }
+};
+
+
+function parseHeaders(req) {
+  let host;
+  try {
+    host = req.headers.host.split(':')[0];
+    console.log('URL: ', req.url, host);
+  } catch (e) {
+    console.log('Error parsing:', req.headers);
+  }
+
+  return host;
+}
 
 function parseHeaders(req) {
   let host;
@@ -33,12 +60,23 @@ function getHostEntry(host) {
 //proxy
 const proxy = httpProxy.createProxyServer({});
 
+// set header for CORS
+proxy.on("proxyRes", function(proxyRes, req, res) {
+  enableCors(req, proxyRes);
+});
+
 //main server
 const server = https.createServer( ssl, function(req, res) {
   const host = parseHeaders(req);
   let  hostEntry = getHostEntry(host);
   if (hostEntry && hostEntry.http) {
     console.log(`  > Routing to request to  ${hostEntry.http}`);
+    if (req.method === 'OPTIONS') {
+      enableCors(req, res);
+      res.writeHead(200);
+      res.end();
+      return;
+    }
     proxy.web(req, res, {
       target: {
         host: 'localhost',
