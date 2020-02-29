@@ -26,19 +26,6 @@ var enableCors = function(req, res) {
   }
 };
 
-
-function parseHeaders(req) {
-  let host;
-  try {
-    host = req.headers.host.split(':')[0];
-    console.log('URL: ', req.url, host);
-  } catch (e) {
-    console.log('Error parsing:', req.headers);
-  }
-
-  return host;
-}
-
 function parseHeaders(req) {
   let host;
   try {
